@@ -10,4 +10,28 @@ const colors = [
   "teal",
 ];
 const colorPickList = [...colors, ...colors];
-console.log(colorPickList);
+const tileCount = colorPickList.length;
+
+//Game state
+let revealedCount = 0;
+let activeTile = null;
+let awaitingEndOfMove = false;
+
+function buildTile(color) {
+  const element = document.createElement("div");
+
+  element.classList.add("tile");
+  element.setAttribute("data-color", color);
+
+  return element;
+}
+
+// Building the tiles
+for (let i = 0; i < tileCount; i++) {
+  const randomIndex = Math.floor(Math.random() * colorPickList.length);
+  const color = colorPickList[randomIndex];
+  const tile = buildTile(color);
+
+  colorPickList.splice(randomIndex, 1);
+  tilesContainer.appendChild(tile);
+}
