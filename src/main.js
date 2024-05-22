@@ -29,6 +29,23 @@ function buildTile(color) {
     }
 
     element.style.backgroundColor = color;
+
+    if (!activeTile) {
+      activeTile = element;
+
+      return;
+    }
+
+    awaitingEndOfMove = true;
+
+    setTimeout(() => {
+      element.style.backgroundColor = null;
+      activeTile.style.backgroundColor = null;
+
+      //clear out the good stuff
+      awaitingEndOfMove = false;
+      activeTile = null;
+    }, 1000);
   });
 
   return element;
