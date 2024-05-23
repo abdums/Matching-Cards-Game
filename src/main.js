@@ -27,7 +27,7 @@ function buildTile(color) {
   element.addEventListener("click", () => {
     const revealed = element.getAttribute("data-revealed");
 
-    if (awaitingEndOfMove || revealed === "true") {
+    if (awaitingEndOfMove || revealed === "true" || element === activeTile) {
       return;
     }
 
