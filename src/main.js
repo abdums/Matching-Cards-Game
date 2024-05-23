@@ -22,9 +22,12 @@ function buildTile(color) {
 
   element.classList.add("tile");
   element.setAttribute("data-color", color);
+  element.setAttribute("data-revealed", "false");
 
   element.addEventListener("click", () => {
-    if (awaitingEndOfMove) {
+    const revealed = element.getAttribute("data-revealed");
+
+    if (awaitingEndOfMove || revealed === "true") {
       return;
     }
 
@@ -39,6 +42,9 @@ function buildTile(color) {
     const colorToMatch = activeTile.getAttribute("data-color");
 
     if (colorToMatch === color) {
+      activeTile.setAttribute("data-revealed", true);
+      element.setAttribute("data-revealed", true);
+
       awaitingEndOfMove = false;
       activeTile = null;
       revealedCount += 2;
