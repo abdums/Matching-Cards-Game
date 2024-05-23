@@ -36,13 +36,27 @@ function buildTile(color) {
       return;
     }
 
+    const colorToMatch = activeTile.getAttribute("data-color");
+
+    if (colorToMatch === color) {
+      awaitingEndOfMove = false;
+      activeTile = null;
+      revealedCount += 2;
+
+      if (revealedCount === tileCount) {
+        alert("Hooray winna winna chicken dinner!!");
+      }
+
+      return;
+    }
+
     awaitingEndOfMove = true;
 
     setTimeout(() => {
       element.style.backgroundColor = null;
       activeTile.style.backgroundColor = null;
 
-      //clear out the good stuff
+      //clear out game state variables
       awaitingEndOfMove = false;
       activeTile = null;
     }, 1000);
