@@ -27,20 +27,24 @@ function buildTile(color) {
   element.addEventListener("click", () => {
     const revealed = element.getAttribute("data-revealed");
 
+    // Conditions to ignore the click
     if (awaitingEndOfMove || revealed === "true" || element === activeTile) {
       return;
     }
 
     element.style.backgroundColor = color;
 
+    // Sets off tile comparison mode
     if (!activeTile) {
       activeTile = element;
 
       return;
     }
 
+    // To compare card color
     const colorToMatch = activeTile.getAttribute("data-color");
 
+    //Match Found & maybe winner winner chicken dinner
     if (colorToMatch === color) {
       activeTile.setAttribute("data-revealed", true);
       element.setAttribute("data-revealed", true);
@@ -58,6 +62,7 @@ function buildTile(color) {
 
     awaitingEndOfMove = true;
 
+    // Mismatched result
     setTimeout(() => {
       element.style.backgroundColor = null;
       activeTile.style.backgroundColor = null;
@@ -80,3 +85,12 @@ for (let i = 0; i < tileCount; i++) {
   colorPickList.splice(randomIndex, 1);
   tilesContainer.appendChild(tile);
 }
+
+// Function to restart the game
+function restartGame() {
+  location.reload();
+}
+
+// Add event listener to the restart button
+const restartButton = document.getElementById("restartButton");
+restartButton.addEventListener("click", restartGame);
